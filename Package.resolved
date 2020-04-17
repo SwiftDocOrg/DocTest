@@ -24,8 +24,17 @@
         "repositoryURL": "https://github.com/SwiftDocOrg/TAP.git",
         "state": {
           "branch": null,
-          "revision": "9c8da52495ebaf3275c5fa03cb423d1272351ec2",
-          "version": null
+          "revision": "768b937be16d585d61d1496cc2c99518429650ff",
+          "version": "0.0.2"
+        }
+      },
+      {
+        "package": "Yams",
+        "repositoryURL": "https://github.com/jpsim/Yams.git",
+        "state": {
+          "branch": null,
+          "revision": "c947a306d2e80ecb2c0859047b35c73b8e1ca27f",
+          "version": "2.0.0"
         }
       }
     ]
