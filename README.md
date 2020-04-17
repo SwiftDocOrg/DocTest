@@ -16,15 +16,16 @@ the challenge becomes keeping documentation correct and up-to-date.
 
 There's no built-in feedback mechanism for documentation like there is for code.
 If you write invalid code,
-your compiler will tell you.
+the compiler will tell you.
 If you write valid but incorrect code,
 your test suite will tell you.
 But if you write documentation with invalid or incorrect example code,
-nothing breaks (at least not immediately).
+you may never find out.
 
 DocTest offers a way to annotate Swift code examples in documentation
-with expectations about its behavior that can be tested automatically,
-just like unit tests.
+with expectations about its behavior,
+and test that behavior automatically —
+just like a unit test.
 
 ## Usage
 
@@ -64,7 +65,7 @@ within a Swift package:
     Returns the sum of two integers.
 
     ```swift
-    add(1 1) // 3.0
+    add(1 1) // Double = 3.0
     ```
 */
 func add(_ a: Int, _ b: Int) -> Int { ... }
@@ -110,7 +111,7 @@ and test the output with any annotated expectations.
 $ swift doctest --package path/to/file.swift
 TAP version 13
 1..1
-not ok 1 - `add(1 1)` did not produce `Double 3.0`
+not ok 1 - `add(1 1)` did not produce `Double = 3.0`
   ---
   column: 1
   file: path/to/file.swift.md
@@ -120,6 +121,36 @@ not ok 1 - `add(1 1)` did not produce `Double 3.0`
 ```
 
 > Test results are reported in [TAP format](https://testanything.org).
+
+Seeing the error,
+we update the documentation to fix the example.
+
+~~~swift
+/**
+    Returns the sum of two integers.
+
+    ```swift doctest
+    add(1, 1) // Int = 2
+    ```
+*/
+func add(_ a: Int, _ b: Int) -> Int { ... }
+~~~
+
+If we re-run the same command as before,
+the tests now pass as expected.
+
+```terminal
+$ swift doctest --package path/to/file.swift
+TAP version 13
+1..1
+ok 1 - `add(1, 1)` produces `Int = 2`
+  ---
+  column: 1
+  file: path/to/file.swift.md
+  line: 1
+  ...
+  
+```
 
 ## License
 
