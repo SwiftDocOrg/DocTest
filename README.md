@@ -5,7 +5,7 @@ for testing Swift example code in documentation.
 
 **This is still a work-in-progress, and not yet ready for production**
 
-> DocTest is inspired by 
+> DocTest is inspired by
 > [Python's `doctest`](https://docs.python.org/3/library/doctest.html).
 
 * * *
@@ -151,6 +151,11 @@ ok 1 - `add(1, 1)` produces `Int = 2`
   ...
   
 ```
+
+> By the way, you can run `swift-doctest` on Markdown files, too —
+> any code blocks starting with <code>```swift doctest</code>
+> and ending with <code>```</code>
+> will be processed.
 
 ## License
 
