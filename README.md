@@ -157,8 +157,9 @@ ok 1 - `add(1, 1)` produces `Int = 2`
 ```
 
 > By the way, you can run `swift-doctest` on Markdown files, too —
-> any code blocks starting with <code>```swift doctest</code>
-> and ending with <code>```</code>
+> any code blocks starting with
+> <code>&#96;&#96;&#96;swift doctest</code>
+> and ending with <code>&#96;&#96;&#96;</code>
 > will be processed.
 
 ## License
