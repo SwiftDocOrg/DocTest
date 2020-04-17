@@ -42,12 +42,19 @@ public class REPL {
     public var evaluationHandler: ((Statement, Result<String, Error>) -> ())?
 
     public init(configuration: Configuration) {
-        self.process = Process()
-        self.process.launchPath = configuration.launchPath
-        self.process.arguments = configuration.arguments
-        self.process.standardInput = inputPipe
-        self.process.standardOutput = outputPipe
-        self.process.standardError = errorPipe
+        process = Process()
+
+        if #available(OSX 10.13, *) {
+            let url = URL(fileURLWithPath: configuration.launchPath)
+            process.executableURL = url
+        } else {
+            process.launchPath = configuration.launchPath
+        }
+
+        process.arguments = configuration.arguments
+        process.standardInput = inputPipe
+        process.standardOutput = outputPipe
+        process.standardError = errorPipe
 
         outputPipe.fileHandleForReading.readabilityHandler = { handle in
             let data = handle.availableData
