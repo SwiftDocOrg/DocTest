@@ -102,7 +102,13 @@ public class REPL {
     }
 
     public func evaluate(_ statement: Statement) {
-        if !process.isRunning { process.launch() }
+        if !process.isRunning {
+            if #available(OSX 10.13, *) {
+                try! process.run()
+            } else {
+                process.launch()
+            }
+        }
 
         queue.append(statement)
 
