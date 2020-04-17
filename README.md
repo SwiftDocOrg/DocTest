@@ -65,7 +65,7 @@ within a Swift package:
     Returns the sum of two integers.
 
     ```swift
-    add(1 1) // Double = 3.0
+    add(1 1) // Returns 3.0
     ```
 */
 func add(_ a: Int, _ b: Int) -> Int { ... }
@@ -134,7 +134,7 @@ we update the documentation to fix the example.
     Returns the sum of two integers.
 
     ```swift doctest
-    add(1, 1) // Int = 2
+    add(1, 1) // => Int = 2
     ```
 */
 func add(_ a: Int, _ b: Int) -> Int { ... }
