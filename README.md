@@ -86,16 +86,20 @@ We can use DocTest to identify these problems automatically
 by adding `"doctest"` to the start of the fenced code block.
 This tells the documentation test runner to evaluate the code sample.
 
-~~~swift
-/**
-    Returns the sum of two integers.
+```diff
+- ```swift
++ ```swift doctest
+```
 
-    ```swift doctest
-    add(1 1) // Double = 3.0
-    ```
-*/
-func add(_ a: Int, _ b: Int) -> Int { ... }
-~~~
+By adding an annotation in the format
+`=> (Type) = (Value)`,
+we can test the expected type and value
+of the expression.
+
+```diff
+- add(1 1) // 3.0
++ add(1 1) // => Double = 3.0
+```
 
 Run the `swift-doctest` command
 from the root directory of the Swift package,
