@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
+        "state": {
+          "branch": null,
+          "revision": "9f04d1ff1afbccd02279338a2c91e5f27c45e93a",
+          "version": "0.0.5"
+        }
+      },
+      {
+        "package": "SwiftSyntax",
+        "repositoryURL": "https://github.com/apple/swift-syntax.git",
+        "state": {
+          "branch": "0.50200.0",
+          "revision": "0688b9cfc4c3dd234e4f55f1f056b2affc849873",
+          "version": null
+        }
+      },
+      {
+        "package": "TAP",
+        "repositoryURL": "https://github.com/SwiftDocOrg/TAP.git",
+        "state": {
+          "branch": null,
+          "revision": "9c8da52495ebaf3275c5fa03cb423d1272351ec2",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
