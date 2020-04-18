@@ -52,7 +52,7 @@ $ make install
 ```
 OVERVIEW: A utility for syntax testing documentation in Swift code.
 
-USAGE: swift-doc-test <input> [--swift-launch-path <swift-launch-path>] [--package] [--assumed-filename <assumed-filename>]
+USAGE: swift-doctest <input> [--swift-launch-path <swift-launch-path>] [--package] [--assumed-filename <assumed-filename>]
 
 ARGUMENTS:
   <input>                 Swift code or a path to a Swift file 
