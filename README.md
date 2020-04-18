@@ -27,6 +27,26 @@ with expectations about its behavior,
 and test that behavior automatically —
 just like a unit test.
 
+## Installation
+
+### Homebrew
+
+Run the following command to install using [Homebrew](https://brew.sh/):
+
+```terminal
+$ brew install swiftdocorg/formulae/swift-doctest
+```
+
+### Manually
+
+Run the following commands to build and install manually:
+
+```terminal
+$ git clone https://github.com/SwiftDocOrg/DocTest
+$ cd DocTest
+$ make install
+```
+
 ## Usage
 
 ```
