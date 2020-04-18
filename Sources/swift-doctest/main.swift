@@ -28,7 +28,10 @@ struct SwiftDocTest: ParsableCommand {
         var assumedFilename: String
     }
 
-    static var configuration = CommandConfiguration(abstract: "A utility for syntax testing documentation in Swift code.")
+    static var configuration = CommandConfiguration(
+        commandName: "swift-doctest",
+        abstract: "A utility for syntax testing documentation in Swift code."
+    )
 
     @OptionGroup()
     var options: Options
