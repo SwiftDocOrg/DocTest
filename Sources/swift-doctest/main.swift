@@ -64,8 +64,13 @@ struct SwiftDocTest: ParsableCommand {
             let runner = try! Runner(source: String(match), assumedFileName: assumedFileName)
 
             group.enter()
-            runner.run(with: configuration) { (report) in
-                reports.append(report)
+            runner.run(with: configuration) { (result) in
+                switch result {
+                case .failure(let error):
+                    reports.append(Report(results: [.failure(BailOut("\(error)"))]))
+                case .success(let report):
+                    reports.append(report)
+                }
                 group.leave()
             }
         }

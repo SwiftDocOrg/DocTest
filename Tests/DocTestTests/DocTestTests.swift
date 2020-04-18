@@ -12,13 +12,18 @@ final class DocTestTests: XCTestCase {
         let expectation = XCTestExpectation()
 
         let runner = try Runner(source: source, assumedFileName: "Example.swift")
-        runner.run(with: .default) { (report) in
+        runner.run(with: .default) { (result) in
             expectation.fulfill()
 
-            XCTAssertEqual(report.outcomes.count, 3)
-            XCTAssertTrue(report.outcomes[0].ok) // 1 + 1 => 2
-            XCTAssertFalse(report.outcomes[1].ok) // 1 + 1 => "wat"
-            XCTAssertTrue(report.outcomes[2].ok) // 1 / 0 !! Error
+            switch result {
+            case .failure(let error):
+                XCTFail("\(error)")
+            case .success(let report):
+                XCTAssertEqual(report.results.count, 3)
+                XCTAssertTrue(try! report.results[0].get().ok) // 1 + 1 => 2
+                XCTAssertFalse(try! report.results[1].get().ok) // 1 + 1 => "wat"
+                XCTAssertTrue(try! report.results[2].get().ok) // 1 / 0 !! Error
+            }
         }
         wait(for: [expectation], timeout: 10.0)
     }

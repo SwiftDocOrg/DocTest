@@ -24,7 +24,7 @@ public final class Runner {
         self.statements = visitor.statements
     }
 
-    public func run(with configuration: REPL.Configuration, completion: (Report) -> Void) {
+    public func run(with configuration: REPL.Configuration, completion: (Result<Report, Error>) -> Void) {
         var tests: [Test] = []
 
         let repl = REPL(configuration: configuration)
@@ -40,8 +40,7 @@ public final class Runner {
         repl.close()
         repl.waitUntilExit()
 
-        let report = tests.run()
-        completion(report)
+        completion(Result<Report, Error> { try tests.run() })
     }
 
     private class Visitor: SyntaxVisitor {
