@@ -2,6 +2,15 @@ import ArgumentParser
 import DocTest
 import Foundation
 import TAP
+// pattern borrowed upstream from swift:
+// https://github.com/apple/swift/blob/master/test/Interpreter/SDK/libc.swift#L10-L14
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+  import Darwin
+#elseif os(Linux) || os(FreeBSD) || os(PS4) || os(Android) || os(Cygwin) || os(Haiku)
+  import Glibc
+#elseif os(Windows)
+  import MSVCRT
+#endif
 
 let fileManager = FileManager.default
 
@@ -81,6 +90,18 @@ struct SwiftDocTest: ParsableCommand {
 
         let consolidatedReport = Report.consolidation(of: reports)
         standardOutput.write(consolidatedReport.description.data(using: .utf8)!)
+        let failureList = consolidatedReport.results.filter({ result -> Bool in
+            do {
+                return try !result.get().ok
+            } catch {
+
+                return true
+            }
+        })
+        if (failureList.count > 0) {
+            // return a non-zero result code so that CI systems will react appropriately
+            Darwin.exit(Int32(failureList.count))
+        }
     }
 }
 
