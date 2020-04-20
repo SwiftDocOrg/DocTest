@@ -100,7 +100,11 @@ struct SwiftDocTest: ParsableCommand {
         })
         if (failureList.count > 0) {
             // return a non-zero result code so that CI systems will react appropriately
-            exit(Int32(failureList.count))
+            #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+            Darwin.exit(Int32(failureList.count))
+            #elseif os(Linux) || os(FreeBSD) || os(PS4) || os(Android) || os(Cygwin) || os(Haiku)
+            Glibc.exit(Int32(failureList.count))
+            #endif
         }
     }
 }
