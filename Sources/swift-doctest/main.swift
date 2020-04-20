@@ -2,8 +2,8 @@ import ArgumentParser
 import DocTest
 import Foundation
 import TAP
-// pattern borrowed upstream from swift:
-// https://github.com/apple/swift/blob/master/test/Interpreter/SDK/libc.swift#L10-L14
+// Pattern borrowed upstream from Swift: 
+// https://github.com/apple/swift/blob/87d3b4d984281b113ffad503cdb1d82b9f0ae5b9/test/Interpreter/SDK/libc.swift#L12-L17
 #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
   import Darwin
 #elseif os(Linux) || os(FreeBSD) || os(PS4) || os(Android) || os(Cygwin) || os(Haiku)
