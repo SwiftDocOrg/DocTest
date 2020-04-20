@@ -13,8 +13,6 @@ final class DocTestTests: XCTestCase {
 
         let runner = try Runner(source: source, assumedFileName: "Example.swift")
         runner.run(with: .default) { (result) in
-            expectation.fulfill()
-
             switch result {
             case .failure(let error):
                 XCTFail("\(error)")
@@ -23,6 +21,7 @@ final class DocTestTests: XCTestCase {
                 XCTAssertTrue(try! report.results[0].get().ok) // 1 + 1 => 2
                 XCTAssertFalse(try! report.results[1].get().ok) // 1 + 1 => "wat"
                 XCTAssertTrue(try! report.results[2].get().ok) // 1 / 0 !! Error
+                expectation.fulfill()
             }
         }
         wait(for: [expectation], timeout: 10.0)
