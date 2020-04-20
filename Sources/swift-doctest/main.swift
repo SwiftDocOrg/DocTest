@@ -90,20 +90,12 @@ struct SwiftDocTest: ParsableCommand {
 
         let consolidatedReport = Report.consolidation(of: reports)
         standardOutput.write(consolidatedReport.description.data(using: .utf8)!)
-        let failureList = consolidatedReport.results.filter({ result -> Bool in
-            do {
-                return try !result.get().ok
-            } catch {
-
-                return true
-            }
-        })
-        if (failureList.count > 0) {
-            // return a non-zero result code so that CI systems will react appropriately
+      if consolidatedReport.results.contains(where: { (try? $0.get().ok) != true }) {
+            // Return a non-zero result code if any tests failed
             #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-            Darwin.exit(Int32(failureList.count))
+            Darwin.exit(EXIT_FAILURE)
             #elseif os(Linux) || os(FreeBSD) || os(PS4) || os(Android) || os(Cygwin) || os(Haiku)
-            Glibc.exit(Int32(failureList.count))
+            Glibc.exit(EXIT_FAILURE)
             #endif
         }
     }
