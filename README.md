@@ -27,6 +27,10 @@ with expectations about its behavior,
 and test that behavior automatically —
 just like a unit test.
 
+## Requirements
+
+- macOS with Swift 5.2 / Xcode 11.4
+
 ## Installation
 
 ### Homebrew
