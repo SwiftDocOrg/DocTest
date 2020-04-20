@@ -100,7 +100,7 @@ struct SwiftDocTest: ParsableCommand {
         })
         if (failureList.count > 0) {
             // return a non-zero result code so that CI systems will react appropriately
-            Darwin.exit(Int32(failureList.count))
+            exit(Int32(failureList.count))
         }
     }
 }
