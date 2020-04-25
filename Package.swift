@@ -9,7 +9,8 @@ let package = Package(
         .macOS(.v10_10)
     ],
     products: [
-        .executable(name: "swift-doctest", targets: ["swift-doctest"])
+        .executable(name: "swift-doctest", targets: ["swift-doctest"]),
+        .library(name: "DocTest", targets: ["DocTest"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
