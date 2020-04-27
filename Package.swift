@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "DocTest",
     platforms: [
-        .macOS(.v10_10)
+        .macOS(.v10_13) // was .v10_10, but Future for linux requires v10_13
     ],
     products: [
         .executable(name: "swift-doctest", targets: ["swift-doctest"]),
@@ -17,6 +17,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-syntax.git", .revision("0.50200.0")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "0.0.4")),
         .package(url: "https://github.com/SwiftDocOrg/TAP.git", .upToNextMinor(from: "0.1.1")),
+        .package(url: "https://github.com/kean/Future", .upToNextMinor(from: "1.4.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -26,7 +27,7 @@ let package = Package(
             dependencies: ["DocTest", "ArgumentParser"]),
         .target(
             name: "DocTest",
-            dependencies: ["SwiftSyntax", "TAP"]),
+            dependencies: ["SwiftSyntax", "TAP", "Future"]),
         .testTarget(
             name: "DocTestTests",
             dependencies: ["DocTest"]),

@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Future",
+        "repositoryURL": "https://github.com/kean/Future",
+        "state": {
+          "branch": null,
+          "revision": "ff9634c819962aa78f7bb360fdae7299d62f1cdc",
+          "version": "1.4.0"
+        }
+      },
+      {
         "package": "swift-argument-parser",
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
