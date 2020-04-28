@@ -2,7 +2,19 @@ import SwiftSyntax
 import Foundation
 import TAP
 
-public class Statement {
+public class Statement : CustomStringConvertible, CustomDebugStringConvertible {
+    public var description: String {
+        get {
+            String("Statement('\(code)') at location: \(sourceLocation)")
+        }
+    }
+    
+    public var debugDescription: String {
+        get {
+            String("Statement('\(code)' at location: \(sourceLocation)")
+        }
+    }
+    
     public let code: String
     public let sourceLocation: SourceLocation
     public internal(set) var expectations: [Expectation] = []

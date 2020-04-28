@@ -30,14 +30,17 @@ public final class Runner {
         let repl = REPL(configuration: configuration)
 
         repl.evaluationHandler = { (statement, result) in
+            print("evaluationHandler for REPL called back with \(statement) and \(result)")
             tests.append(contentsOf: statement.tests(with: result))
         }
 
         for statement in statements {
+            print("sending statement for evaluation: \(String(reflecting: statement))")
             repl.evaluate(statement)
         }
-
+        print("closing REPL")
         repl.close()
+        print("waiting for REPL process to terminate")
         repl.waitUntilExit()
 
         completion(Result<Report, Error> { try tests.run() })
