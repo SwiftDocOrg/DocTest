@@ -6,7 +6,10 @@ import PackageDescription
 let package = Package(
     name: "DocTest",
     platforms: [
-        .macOS(.v10_13) // was .v10_10, but Future for linux requires v10_13
+        .macOS(.v10_13)
+        // was .v10_10, but Future for linux requires v10_13
+        // I've got a question pending about why that was increased
+        // https://github.com/kean/Future/issues/14
     ],
     products: [
         .executable(name: "swift-doctest", targets: ["swift-doctest"]),
