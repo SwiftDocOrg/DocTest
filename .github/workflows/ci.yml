@@ -23,7 +23,7 @@ jobs:
 
     container:
       image: swift:5.2
-      options: --privileged --cap-add sys_ptrace
+      options: --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --security-opt apparmor=unconfined
 
     steps:
       - name: Checkout
