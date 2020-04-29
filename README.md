@@ -29,7 +29,21 @@ just like a unit test.
 
 ## Requirements
 
-- macOS with Swift 5.2 / Xcode 11.4
+- Swift 5.2
+
+> **Note**:
+> When running `swift-doctest` from a Docker container,
+> pass the following options:
+>
+> - `--cap-add=SYS_PTRACE`  
+>   _(allows the launched process to trace system calls from)_
+> - `--security-opt seccomp=unconfined`  
+>   _(runs the container without the [default security profile][seccomp])_
+> - `--security-opt apparmor=unconfined`  
+>   _(runs the container without the [AppArmor security profile][apparmor])_
+> 
+> Without these permissions,
+> DocTest cannot launch the Swift REPL to evaluate code statements.
 
 ## Installation
 
@@ -66,7 +80,7 @@ OPTIONS:
                           The path to the swift executable. (default:
                           /usr/bin/swift)
   -p, --package           Whether to run the REPL through Swift Package Manager
-                          (`swift run --repl`). 
+                          (`swift run --repl`).
   --assumed-filename <assumed-filename>
                           The assumed filename to use for reporting when
                           parsing from standard input. (default: Untitled.swift)
@@ -193,3 +207,6 @@ MIT
 ## Contact
 
 Mattt ([@mattt](https://twitter.com/mattt))
+
+[seccomp]: https://docs.docker.com/engine/security/seccomp/
+[apparmor]: https://docs.docker.com/engine/security/apparmor/
