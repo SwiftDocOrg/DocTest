@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added documentation and testing infrastructure for Linux support.
+  #17 by @heckj and @mattt.
+
 ## [0.0.4] - 2020-04-26
 
 ### Changed
