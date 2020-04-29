@@ -23,6 +23,7 @@ jobs:
 
     container:
       image: swift:5.2
+      options: --privileged --cap-add sys_ptrace
 
     steps:
       - name: Checkout
