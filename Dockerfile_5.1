@@ -2,12 +2,13 @@ FROM swift:5.1
 # concept borrowed from https://www.objc.io/blog/2018/08/28/testing-swift-on-linux/
 # use:
 #     docker build . -f "Dockerfile_5.1"
-#     docker build . -f "Dockerfile_5.1" -t test --no-cache
+#     docker build . -f "Dockerfile_5.1" -t linuxbuild51 --no-cache
+#     docker run --rm -it linuxbuild51
 # to run the build and test...
 WORKDIR /lib
 COPY Package.swift ./
 COPY Sources ./Sources
 COPY Tests ./Tests
-RUN swift build -v --disable-index-store --build-tests
-RUN swift test -v --enable-test-discovery
+RUN swift build -v --disable-index-store # --build-tests
+# RUN swift test -v --enable-test-discovery --disable-index-store
 CMD ["bash"]

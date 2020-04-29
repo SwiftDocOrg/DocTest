@@ -26,4 +26,8 @@ final class DocTestTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 10.0)
     }
+    
+    static var allTests = [
+        ("testRunner", testRunner),
+    ]
 }
