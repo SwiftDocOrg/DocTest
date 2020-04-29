@@ -9,7 +9,6 @@ on:
 jobs:
   macos:
     runs-on: macos-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -26,6 +25,4 @@ jobs:
       - name: Build local docker image
         run: docker build . -f Dockerfile_5.2 -t linuxbuild52
       - name: run the docker image to test
-        run: |
-         docker run --security-opt apparmor:unconfined --security-opt seccomp=unconfined \
-         linuxbuild52 swift test -v --enable-test-discovery
+        run: docker run --security-opt apparmor:unconfined --security-opt seccomp=unconfined linuxbuild52 swift test -v --enable-test-discovery
