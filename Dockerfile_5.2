@@ -9,6 +9,6 @@ WORKDIR /lib
 COPY Package.swift ./
 COPY Sources ./Sources
 COPY Tests ./Tests
-RUN swift build -v --disable-index-store # --build-tests
-# RUN swift test -v --enable-test-discovery --disable-index-store
+RUN swift build -v # --disable-index-store # --build-tests
+ RUN swift test -v --enable-test-discovery # --disable-index-store
 CMD ["bash"]

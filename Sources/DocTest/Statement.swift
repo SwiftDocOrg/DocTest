@@ -5,16 +5,16 @@ import TAP
 public class Statement : CustomStringConvertible, CustomDebugStringConvertible {
     public var description: String {
         get {
-            String("Statement('\(code)') at location: \(sourceLocation)")
+            String("Statement('\(code)') at location: \(sourceLocation))")
         }
     }
-    
+
     public var debugDescription: String {
         get {
-            String("Statement('\(code)' at location: \(sourceLocation)")
+            String("Statement('\(code)' at location: \(sourceLocation))")
         }
     }
-    
+
     public let code: String
     public let sourceLocation: SourceLocation
     public internal(set) var expectations: [Expectation] = []
@@ -22,7 +22,7 @@ public class Statement : CustomStringConvertible, CustomDebugStringConvertible {
     public init?(_ node: CodeBlockItemSyntax, _ sourceLocation: SourceLocation) {
         let code = node.withoutTrivia().description.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !code.isEmpty else { return nil }
-        
+
         self.code = code
         self.sourceLocation = sourceLocation
     }
