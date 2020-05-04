@@ -7,11 +7,11 @@ import Logging
 // Pattern borrowed upstream from Swift: 
 // https://github.com/apple/swift/blob/87d3b4d984281b113ffad503cdb1d82b9f0ae5b9/test/Interpreter/SDK/libc.swift#L12-L17
 #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-  import Darwin
+import Darwin
 #elseif os(Linux) || os(FreeBSD) || os(PS4) || os(Android) || os(Cygwin) || os(Haiku)
-  import Glibc
+import Glibc
 #elseif os(Windows)
-  import MSVCRT
+import MSVCRT
 #endif
 
 LoggingSystem.bootstrap { label in
@@ -55,7 +55,17 @@ struct SwiftDocTest: ParsableCommand {
     var options: Options
 
     func run() throws {
+        var logger = Logger(label: "org.swiftdoc.doctest")
+        logger.logLevel = options.verbose ? .trace : .warning
+
+        logger.trace("Starting \(SwiftDocTest.configuration.commandName ?? "")")
+
         let input = options.input
+
+        let configuration = REPL.Configuration(launchPath: options.launchPath, arguments: options.runThroughPackageManager ? ["run", "--repl"] : [])
+
+        logger.info("Swift launch path: \(configuration.launchPath)")
+        logger.info("Swift launch arguments: \(configuration.arguments)")
 
         let pattern = #"^\`{3}\s*swift\s+doctest\s*\n(.+)\n\`{3}$"#
         let regex = try NSRegularExpression(pattern: pattern, options: [.caseInsensitive, .anchorsMatchLines, .dotMatchesLineSeparators])
@@ -66,12 +76,12 @@ struct SwiftDocTest: ParsableCommand {
             let url = URL(fileURLWithPath: input)
             source = try String(contentsOf: url)
             assumedFileName = url.relativePath
+            logger.trace("Scanning \(url.path) for DocTest blocks")
         } else {
             source = input
             assumedFileName = options.assumedFilename
+            logger.trace("Scanning standard input for DocTest blocks")
         }
-
-        let configuration = REPL.Configuration(launchPath: options.launchPath, arguments: options.runThroughPackageManager ? ["run", "--repl"] : [])
 
         var reports: [Report] = []
 
@@ -79,16 +89,21 @@ struct SwiftDocTest: ParsableCommand {
         regex.enumerateMatches(in: source, options: [], range: NSRange(source.startIndex..<source.endIndex, in: source)) { (result, _, _) in
             guard let result = result, result.numberOfRanges == 2,
                 let range = Range(result.range(at: 1), in: source)
-            else { return }
+                else { return }
             let match = source[range]
+
+            logger.trace("Found match at \(range.lowerBound.utf16Offset(in: source))–\(range.upperBound.utf16Offset(in: source)):\n\(match)")
 
             let runner = try! Runner(source: String(match), assumedFileName: assumedFileName)
 
+            logger.info("Number of statements: \(runner.statements.count)")
+
             group.enter()
-            runner.run(with: configuration) { (result) in
+            runner.run(with: configuration) { result in
                 switch result {
                 case .failure(let error):
                     reports.append(Report(results: [.failure(BailOut("\(error)"))]))
+                    logger.notice("\(error)")
                 case .success(let report):
                     reports.append(report)
                 }
@@ -97,9 +112,13 @@ struct SwiftDocTest: ParsableCommand {
         }
         group.wait()
 
+        logger.trace("Finished running tests.")
+        logger.trace("Printing test report in TAP format.")
+
         let consolidatedReport = Report.consolidation(of: reports)
         standardOutput.write(consolidatedReport.description.data(using: .utf8)!)
-      if consolidatedReport.results.contains(where: { (try? $0.get().ok) != true }) {
+
+        if consolidatedReport.results.contains(where: { (try? $0.get().ok) != true }) {
             // Return a non-zero result code if any tests failed
             #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
             Darwin.exit(EXIT_FAILURE)

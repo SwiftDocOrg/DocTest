@@ -3,7 +3,7 @@ import Foundation
 import TAP
 
 public final class Runner {
-    let statements: [Statement]
+    public let statements: [Statement]
 
     public convenience init(source: String, assumedFileName: String) throws {
         let tree = try SyntaxParser.parse(source: source)
