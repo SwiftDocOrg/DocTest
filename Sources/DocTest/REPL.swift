@@ -39,7 +39,7 @@ public class REPL {
 
     private var queue: [Statement] = []
 
-    public var evaluationHandler: ((Statement, Result<String, Error>) -> ())?
+    public var evaluationHandler: ((Statement, Result<String, Error>) -> Void)?
 
     public init(configuration: Configuration) {
         process = Process()
@@ -139,8 +139,8 @@ public class REPL {
 
     public func close() {
 
-      if #available(OSX 10.15, *) {
-          try! self.inputPipe.fileHandleForWriting.close()
-      }
+        if #available(OSX 10.15, *) {
+            try! self.inputPipe.fileHandleForWriting.close()
+        }
     }
 }

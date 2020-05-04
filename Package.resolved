@@ -2,12 +2,30 @@
   "object": {
     "pins": [
       {
+        "package": "StringLocationConverter",
+        "repositoryURL": "https://github.com/SwiftDocOrg/StringLocationConverter.git",
+        "state": {
+          "branch": null,
+          "revision": "6cf6579c191e20a5a77a7e3176d37a8d654c9fc4",
+          "version": "0.0.1"
+        }
+      },
+      {
         "package": "swift-argument-parser",
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
           "revision": "9f04d1ff1afbccd02279338a2c91e5f27c45e93a",
           "version": "0.0.5"
+        }
+      },
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log.git",
+        "state": {
+          "branch": null,
+          "revision": "74d7b91ceebc85daf387ebb206003f78813f71aa",
+          "version": "1.2.0"
         }
       },
       {

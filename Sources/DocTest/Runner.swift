@@ -3,12 +3,20 @@ import Foundation
 import TAP
 
 public final class Runner {
-    let statements: [Statement]
+    public let statements: [Statement]
 
-    public convenience init(source: String, assumedFileName: String) throws {
+    public convenience init(source: String, assumedFileName: String, lineOffset: Int = 0) throws {
         let tree = try SyntaxParser.parse(source: source)
         let sourceLocationConverter = SourceLocationConverter(file: assumedFileName, tree: tree)
         self.init(syntax: tree, sourceLocationConverter: sourceLocationConverter)
+        for statement in statements {
+            if let line = statement.sourceLocation.line,
+                let column = statement.sourceLocation.column,
+                let file = statement.sourceLocation.file
+            {
+                statement.sourceLocation = SourceLocation(line: line + lineOffset, column: column, offset: statement.sourceLocation.offset, file: file)
+            }
+        }
     }
 
     public convenience init(file url: URL) throws {
