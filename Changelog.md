@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2020-05-04
+
 ### Added
 
 - Added documentation and testing infrastructure for Linux support.
@@ -44,7 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release.
 
-[unreleased]: https://github.com/SwiftDocOrg/doctest/compare/0.0.4...master
+[unreleased]: https://github.com/SwiftDocOrg/doctest/compare/0.1.0...master
+[0.1.0]: https://github.com/SwiftDocOrg/swift-doc/releases/tag/0.1.0
 [0.0.4]: https://github.com/SwiftDocOrg/swift-doc/releases/tag/0.0.4
 [0.0.3]: https://github.com/SwiftDocOrg/swift-doc/releases/tag/0.0.3
 [0.0.2]: https://github.com/SwiftDocOrg/swift-doc/releases/tag/0.0.2
