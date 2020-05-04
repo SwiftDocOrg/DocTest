@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "StringLocationConverter",
+        "repositoryURL": "https://github.com/SwiftDocOrg/StringLocationConverter.git",
+        "state": {
+          "branch": null,
+          "revision": "6cf6579c191e20a5a77a7e3176d37a8d654c9fc4",
+          "version": "0.0.1"
+        }
+      },
+      {
         "package": "swift-argument-parser",
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {

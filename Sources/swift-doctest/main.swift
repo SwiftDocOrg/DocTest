@@ -2,6 +2,7 @@ import ArgumentParser
 import DocTest
 import Foundation
 import TAP
+import StringLocationConverter
 import Logging
 
 // Pattern borrowed upstream from Swift: 
@@ -64,8 +65,8 @@ struct SwiftDocTest: ParsableCommand {
 
         let configuration = REPL.Configuration(launchPath: options.launchPath, arguments: options.runThroughPackageManager ? ["run", "--repl"] : [])
 
-        logger.info("Swift launch path: \(configuration.launchPath)")
-        logger.info("Swift launch arguments: \(configuration.arguments)")
+        logger.debug("Swift launch path: \(configuration.launchPath)")
+        logger.debug("Swift launch arguments: \(configuration.arguments)")
 
         let pattern = #"^\`{3}\s*swift\s+doctest\s*\n(.+)\n\`{3}$"#
         let regex = try NSRegularExpression(pattern: pattern, options: [.caseInsensitive, .anchorsMatchLines, .dotMatchesLineSeparators])
@@ -83,6 +84,8 @@ struct SwiftDocTest: ParsableCommand {
             logger.trace("Scanning standard input for DocTest blocks")
         }
 
+        let converter = StringLocationConverter(for: source)
+
         var reports: [Report] = []
 
         let group = DispatchGroup()
@@ -92,11 +95,17 @@ struct SwiftDocTest: ParsableCommand {
                 else { return }
             let match = source[range]
 
-            logger.trace("Found match at \(range.lowerBound.utf16Offset(in: source))–\(range.upperBound.utf16Offset(in: source)):\n\(match)")
+            let position: String
+            var lineOffset: Int = 0
+            if let location = converter.location(for: range.lowerBound, in: source) {
+                lineOffset = location.line
+                position = "\(location.line):\(location.column)"
+            } else {
+                position = "\(range.lowerBound.utf16Offset(in: source)) – \(range.upperBound.utf16Offset(in: source))"
+            }
+            logger.info("Found DocTest block at \(assumedFileName)#\(position)\n\(match)")
 
-            let runner = try! Runner(source: String(match), assumedFileName: assumedFileName)
-
-            logger.info("Number of statements: \(runner.statements.count)")
+            let runner = try! Runner(source: String(match), assumedFileName: assumedFileName, lineOffset: lineOffset)
 
             group.enter()
             runner.run(with: configuration) { result in

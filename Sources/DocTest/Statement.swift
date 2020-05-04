@@ -4,7 +4,7 @@ import TAP
 
 public class Statement {
     public let code: String
-    public let sourceLocation: SourceLocation
+    public var sourceLocation: SourceLocation
     public internal(set) var expectations: [Expectation] = []
 
     public init?(_ node: CodeBlockItemSyntax, _ sourceLocation: SourceLocation) {

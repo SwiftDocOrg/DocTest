@@ -17,6 +17,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-syntax.git", .revision("0.50200.0")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "0.0.4")),
         .package(url: "https://github.com/SwiftDocOrg/TAP.git", .upToNextMinor(from: "0.1.1")),
+        .package(url: "https://github.com/SwiftDocOrg/StringLocationConverter.git", .upToNextMinor(from: "0.0.1")),
         .package(url: "https://github.com/apple/swift-log.git", .upToNextMinor(from: "1.2.0")),
     ],
     targets: [
@@ -24,7 +25,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "swift-doctest",
-            dependencies: ["DocTest", "ArgumentParser", "Logging"]),
+            dependencies: ["DocTest", "StringLocationConverter", "ArgumentParser", "Logging"]),
         .target(
             name: "DocTest",
             dependencies: ["SwiftSyntax", "TAP"]),
