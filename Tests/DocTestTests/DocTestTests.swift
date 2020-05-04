@@ -7,6 +7,8 @@ final class DocTestTests: XCTestCase {
         1 + 1 // => Int = 2
         1 + 1 // => String = "wat"
         1 / 0 // !! Error
+        invalid
+        1 + 1 // => Int = 2
         """#
 
         let expectation = XCTestExpectation()
@@ -17,10 +19,13 @@ final class DocTestTests: XCTestCase {
             case .failure(let error):
                 XCTFail("\(error)")
             case .success(let report):
-                XCTAssertEqual(report.results.count, 3)
+                XCTAssertEqual(report.results.count, 5)
                 XCTAssertTrue(try! report.results[0].get().ok) // 1 + 1 => 2
                 XCTAssertFalse(try! report.results[1].get().ok) // 1 + 1 => "wat"
                 XCTAssertTrue(try! report.results[2].get().ok) // 1 / 0 !! Error
+                XCTAssertFalse(try! report.results[3].get().ok) // invalid
+                XCTAssertTrue(try! report.results[4].get().ok) // 1 + 1 => 2
+
                 expectation.fulfill()
             }
         }
