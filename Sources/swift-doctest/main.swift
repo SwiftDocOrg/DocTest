@@ -2,6 +2,8 @@ import ArgumentParser
 import DocTest
 import Foundation
 import TAP
+import Logging
+
 // Pattern borrowed upstream from Swift: 
 // https://github.com/apple/swift/blob/87d3b4d984281b113ffad503cdb1d82b9f0ae5b9/test/Interpreter/SDK/libc.swift#L12-L17
 #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
@@ -11,6 +13,10 @@ import TAP
 #elseif os(Windows)
   import MSVCRT
 #endif
+
+LoggingSystem.bootstrap { label in
+    return StreamLogHandler.standardError(label: label)
+}
 
 let fileManager = FileManager.default
 
