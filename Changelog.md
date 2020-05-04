@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added documentation and testing infrastructure for Linux support.
   #17 by @heckj and @mattt.
+- Added `--verbose` command flag.
+  #21 by @mattt.
+
+### Fixed
+
+- Fixed test runner to fail on unexpected errors.
+  #24 by @mattt.
 
 ## [0.0.4] - 2020-04-26
 
