@@ -10,7 +10,7 @@ public class Statement {
     public init?(_ node: CodeBlockItemSyntax, _ sourceLocation: SourceLocation) {
         let code = node.withoutTrivia().description.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !code.isEmpty else { return nil }
-        
+
         self.code = code
         self.sourceLocation = sourceLocation
     }
