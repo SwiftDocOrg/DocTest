@@ -41,6 +41,9 @@ struct SwiftDocTest: ParsableCommand {
                 default: "Untitled.swift",
                 help: "The assumed filename to use for reporting when parsing from standard input.")
         var assumedFilename: String
+
+        @Flag(help: "Use verbose output")
+        var verbose: Bool
     }
 
     static var configuration = CommandConfiguration(
