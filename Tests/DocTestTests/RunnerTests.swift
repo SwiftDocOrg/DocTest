@@ -1,14 +1,14 @@
 import XCTest
 import DocTest
 
-final class DocTestTests: XCTestCase {
-    func testRunner() throws {
+final class RunnerTests: XCTestCase {
+    func testExample() throws {
         let source = #"""
-        1 + 1 // => Int = 2
-        1 + 1 // => String = "wat"
-        1 / 0 // !! Error
+        1 + 2 // => 3
+        1 + 2 // -> String
+        1 / 0 // !! error: division by zero
         invalid
-        1 + 1 // => Int = 2
+        1 + 2 // ~> Int = \d
         """#
 
         let expectation = XCTestExpectation()
@@ -20,11 +20,11 @@ final class DocTestTests: XCTestCase {
                 XCTFail("\(error)")
             case .success(let report):
                 XCTAssertEqual(report.results.count, 5)
-                XCTAssertTrue(try! report.results[0].get().ok) // 1 + 1 => 2
-                XCTAssertFalse(try! report.results[1].get().ok) // 1 + 1 => "wat"
-                XCTAssertTrue(try! report.results[2].get().ok) // 1 / 0 !! Error
-                XCTAssertFalse(try! report.results[3].get().ok) // invalid
-                XCTAssertTrue(try! report.results[4].get().ok) // 1 + 1 => 2
+                XCTAssertTrue(try! report.results[0].get().ok)
+                XCTAssertFalse(try! report.results[1].get().ok)
+                XCTAssertTrue(try! report.results[2].get().ok)
+                XCTAssertFalse(try! report.results[3].get().ok)
+                XCTAssertTrue(try! report.results[4].get().ok)
 
                 expectation.fulfill()
             }

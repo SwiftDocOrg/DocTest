@@ -17,9 +17,9 @@ public class REPL {
         public var description: String
 
         public init?(_ description: String) {
-            let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !trimmedDescription.isEmpty else { return nil }
-            self.description = trimmedDescription
+            let description = description.trimmed
+            guard !description.isEmpty else { return nil }
+            self.description = description
         }
     }
 
@@ -41,7 +41,7 @@ public class REPL {
 
     public var evaluationHandler: ((Statement, Result<String, Error>) -> Void)?
 
-    public init(configuration: Configuration) {
+    init(configuration: Configuration) {
         process = Process()
 
         if #available(OSX 10.13, *) {
@@ -108,7 +108,7 @@ public class REPL {
         }
     }
 
-    public func evaluate(_ statement: Statement) {
+    func evaluate(_ statement: Statement) {
         if !process.isRunning {
             if #available(OSX 10.13, *) {
                 try! process.run()
@@ -133,12 +133,11 @@ public class REPL {
         outputPipe.fileHandleForReading.readabilityHandler = nil
     }
 
-    public func waitUntilExit() {
+    func waitUntilExit() {
         process.waitUntilExit()
     }
 
-    public func close() {
-
+    func close() {
         if #available(OSX 10.15, *) {
             try! self.inputPipe.fileHandleForWriting.close()
         }
