@@ -7,11 +7,18 @@ public class Scanner {
     private var regularExpression: NSRegularExpression
 
     public init() throws {
-        let pattern = #"^\`{3}\s*swift\s+doctest\s*\n(.+)\n\`{3}$"#
+        let pattern = #"""
+        ^
+        \h* \`{3} \h* swift \h+ doctest \h* \n
+        (.+)\n
+        \h* \`{3} \h*
+        $
+        """#
         self.regularExpression = try NSRegularExpression(pattern: pattern,
                                                          options: [
-                                                            .caseInsensitive,
+                                                            .allowCommentsAndWhitespace,
                                                             .anchorsMatchLines,
+                                                            .caseInsensitive,
                                                             .dotMatchesLineSeparators
                                                          ])
     }
