@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changed Swift version requirement to 5.3.
   #29 by @mattt.
+- Changed expression syntax.
+  #30 by @mattt.
+
+### Fixed
+
+- Fixed a bug that caused DocTest annotations to be missed.
+  #30 by @mattt.
 
 ## [0.1.0] - 2020-05-04
 
