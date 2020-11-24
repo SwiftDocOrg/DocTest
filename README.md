@@ -73,7 +73,7 @@ OVERVIEW: A utility for syntax testing documentation in Swift code.
 USAGE: swift-doctest <input> [--swift-launch-path <swift-launch-path>] [--package] [--assumed-filename <assumed-filename>]
 
 ARGUMENTS:
-  <input>                 Swift code or a path to a Swift file 
+  <input>                 Swift code or a path to a Swift file
 
 OPTIONS:
   --swift-launch-path <swift-launch-path>
@@ -130,22 +130,20 @@ This tells the documentation test runner to evaluate the code sample.
 ```
 
 By adding an annotation in the format
-`=> (Type) = (Value)`,
+`=> <#Value#>`,
 we can test the expected type and value
 of the expression.
 
 ```diff
 - add(1 1) // 3.0
-+ add(1 1) // => Double = 3.0
++ add(1 1) // => 3.0
 ```
 
 Run the `swift-doctest` command
-from the root directory of the Swift package,
-specifying the `--package` flag
-(to invoke the Swift REPL via the Swift Package Manager)
+from the root directory of the Swift package
 and passing the path to the file containing the `add(_:_:)` function.
 This will scan for all of code blocks annotated with
-<code>```swift doctest</code>
+<code>```swift doctest</code>,
 run them through the Swift REPL,
 and test the output with any annotated expectations.
 
@@ -153,7 +151,7 @@ and test the output with any annotated expectations.
 $ swift doctest --package path/to/file.swift
 TAP version 13
 1..1
-not ok 1 - `add(1 1)` did not produce `Double = 3.0`
+not ok 1 - `add(1 1)` did not produce `3.0`
   ---
   column: 1
   file: path/to/file.swift.md
@@ -172,7 +170,7 @@ we update the documentation to fix the example.
     Returns the sum of two integers.
 
     ```swift doctest
-    add(1, 1) // => Int = 2
+    add(1, 1) // => 2
     ```
 */
 func add(_ a: Int, _ b: Int) -> Int { ... }
@@ -185,7 +183,7 @@ the tests now pass as expected.
 $ swift doctest --package path/to/file.swift
 TAP version 13
 1..1
-ok 1 - `add(1, 1)` produces `Int = 2`
+ok 1 - `add(1, 1)` produces `2`
   ---
   column: 1
   file: path/to/file.swift.md
