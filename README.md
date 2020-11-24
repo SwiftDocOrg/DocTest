@@ -29,7 +29,7 @@ just like a unit test.
 
 ## Requirements
 
-- Swift 5.2
+- Swift 5.3
 
 > **Note**:
 > When running `swift-doctest` from a Docker container,
