@@ -66,8 +66,7 @@ struct SwiftDocTest: ParsableCommand {
         logger.debug("Swift launch path: \(configuration.launchPath)")
         logger.debug("Swift launch arguments: \(configuration.arguments)")
 
-        let pattern = #"^\`{3}\s*swift\s+doctest\s*\n(.+)\n\`{3}$"#
-        let regex = try NSRegularExpression(pattern: pattern, options: [.caseInsensitive, .anchorsMatchLines, .dotMatchesLineSeparators])
+        let scanner = try Scanner()
 
         let source: String
         let assumedFileName: String
@@ -82,29 +81,13 @@ struct SwiftDocTest: ParsableCommand {
             logger.trace("Scanning standard input for DocTest blocks")
         }
 
-        let converter = StringLocationConverter(for: source)
-
         var reports: [Report] = []
 
         let group = DispatchGroup()
-        regex.enumerateMatches(in: source, options: [], range: NSRange(source.startIndex..<source.endIndex, in: source)) { (result, _, _) in
-            guard let result = result, result.numberOfRanges == 2,
-                let range = Range(result.range(at: 1), in: source)
-                else { return }
-            let match = source[range]
+        for match in scanner.matches(in: source) {
+            logger.info("Found DocTest block at \(assumedFileName)#\(match.line):\(match.column)\n\(match.content)")
 
-            let position: String
-            var lineOffset: Int = 0
-            if let location = converter.location(for: range.lowerBound, in: source) {
-                lineOffset = location.line
-                position = "\(location.line):\(location.column)"
-            } else {
-                position = "\(range.lowerBound.utf16Offset(in: source)) – \(range.upperBound.utf16Offset(in: source))"
-            }
-            logger.info("Found DocTest block at \(assumedFileName)#\(position)\n\(match)")
-
-            let runner = try! Runner(source: String(match), assumedFileName: assumedFileName, lineOffset: lineOffset)
-
+            let runner = try Runner(source: match.content, assumedFileName: assumedFileName, lineOffset: match.line)
             group.enter()
             runner.run(with: configuration) { result in
                 switch result {

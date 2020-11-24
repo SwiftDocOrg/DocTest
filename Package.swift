@@ -34,7 +34,6 @@ let package = Package(
             name: "swift-doctest",
             dependencies: [
                 .target(name: "DocTest"),
-                .product(name: "StringLocationConverter", package: "StringLocationConverter"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "Logging", package: "swift-log"),
             ]),
@@ -42,6 +41,7 @@ let package = Package(
             name: "DocTest",
             dependencies: [
                 .product(name: "SwiftSyntax", package: "SwiftSyntax"),
+                .product(name: "StringLocationConverter", package: "StringLocationConverter"),
                 .product(name: "TAP", package: "TAP"),
             ]),
         .testTarget(
