@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "DocTest",
     platforms: [
-        .macOS(.v10_10)
+        .macOS(.v10_12)
     ],
     products: [
         .executable(name: "swift-doctest", targets: ["swift-doctest"]),
