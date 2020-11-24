@@ -15,7 +15,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/apple/swift-syntax.git", .revision("0.50300.0")),
-        .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "0.0.4")),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMinor(from: "0.3.1")),
         .package(url: "https://github.com/SwiftDocOrg/TAP.git", .upToNextMinor(from: "0.1.1")),
         .package(url: "https://github.com/SwiftDocOrg/StringLocationConverter.git", .upToNextMinor(from: "0.0.1")),
         .package(url: "https://github.com/apple/swift-log.git", .upToNextMinor(from: "1.2.0")),
