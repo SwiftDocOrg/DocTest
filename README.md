@@ -1,5 +1,7 @@
 # DocTest
 
+![CI][ci badge]
+
 **DocTest** is an experimental tool
 for testing Swift example code in documentation.
 
@@ -208,3 +210,5 @@ Mattt ([@mattt](https://twitter.com/mattt))
 
 [seccomp]: https://docs.docker.com/engine/security/seccomp/
 [apparmor]: https://docs.docker.com/engine/security/apparmor/
+
+[ci badge]: https://github.com/SwiftDocOrg/DocTest/workflows/CI/badge.svg
