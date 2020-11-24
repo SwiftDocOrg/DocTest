@@ -30,21 +30,19 @@ struct SwiftDocTest: ParsableCommand {
         var input: String
 
         @Option(name: [.customLong("swift-launch-path")],
-                default: REPL.Configuration.default.launchPath,
                 help: "The path to the swift executable.")
-        var launchPath: String
+        var launchPath: String = REPL.Configuration.default.launchPath
 
         @Flag(name: [.customShort("p"), .customLong("package")],
               help: "Whether to run the REPL through Swift Package Manager (`swift run --repl`).")
-        var runThroughPackageManager: Bool
+        var runThroughPackageManager: Bool = false
 
         @Option(name: [.customLong("assumed-filename")],
-                default: "Untitled.swift",
                 help: "The assumed filename to use for reporting when parsing from standard input.")
-        var assumedFilename: String
+        var assumedFilename: String = "Untitled.swift"
 
         @Flag(help: "Use verbose output")
-        var verbose: Bool
+        var verbose: Bool = false
     }
 
     static var configuration = CommandConfiguration(
