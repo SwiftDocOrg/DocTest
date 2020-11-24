@@ -15,7 +15,7 @@ public class Statement {
         self.sourceLocation = sourceLocation
     }
 
-    public func tests(with result: Result<String, REPL.Error>) -> [Test] {
+    func tests(with result: Result<String, REPL.Error>) -> [Test] {
         var metadata: [String: Any] = [
             "file": self.sourceLocation.file as Any?,
             "line": self.sourceLocation.line as Any?,
