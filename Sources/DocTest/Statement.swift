@@ -8,7 +8,7 @@ public class Statement {
     public internal(set) var expectations: [Expectation] = []
 
     public init?(_ node: CodeBlockItemSyntax, _ sourceLocation: SourceLocation) {
-        let code = node.withoutTrivia().description.trimmingCharacters(in: .whitespacesAndNewlines)
+        let code = node.withoutTrivia().description.trimmed
         guard !code.isEmpty else { return nil }
 
         self.code = code
@@ -31,15 +31,17 @@ public class Statement {
             } else {
                 return expectations.map { expectation in
                     switch expectation {
-                    case .value(let expected):
+                    case .error:
+                        return test {
+                            .success("- `\(self.code)` produced an error, as expected", directive: nil, metadata: metadata)
+                        }
+                    case .type(let expected),
+                         .value(let expected),
+                         .match(let expected):
                         metadata["expected"] = expected
 
                         return test {
                             .failure("- `\(self.code)` produced an error", directive: nil, metadata: metadata)
-                        }
-                    case .error:
-                        return test {
-                            .success("- `\(self.code)` produced an error, as expected", directive: nil, metadata: metadata)
                         }
                     }
                 }
@@ -49,10 +51,12 @@ public class Statement {
 
             return expectations.map { expectation in
                 switch expectation {
-                case .value(let expected):
+                case .type(let expected),
+                     .value(let expected),
+                     .match(let expected):
                     metadata["expected"] = expected
 
-                    if actual == expected {
+                    if expectation.evaluate(actual) {
                         return test {
                             .success("- `\(self.code)` produces `\(actual)`", directive: nil, metadata: metadata)
                         }

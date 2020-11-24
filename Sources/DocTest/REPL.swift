@@ -17,9 +17,9 @@ public class REPL {
         public var description: String
 
         public init?(_ description: String) {
-            let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !trimmedDescription.isEmpty else { return nil }
-            self.description = trimmedDescription
+            let description = description.trimmed
+            guard !description.isEmpty else { return nil }
+            self.description = description
         }
     }
 

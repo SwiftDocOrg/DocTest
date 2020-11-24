@@ -4,11 +4,11 @@ import DocTest
 final class DocTestTests: XCTestCase {
     func testRunner() throws {
         let source = #"""
-        1 + 1 // => Int = 2
-        1 + 1 // => String = "wat"
-        1 / 0 // !! Error
+        1 + 1 // => 2
+        1 + 1 // -> String
+        1 / 0 // !! error: division by zero
         invalid
-        1 + 1 // => Int = 2
+        1 + 1 // ~> Int = \d
         """#
 
         let expectation = XCTestExpectation()
@@ -30,5 +30,12 @@ final class DocTestTests: XCTestCase {
             }
         }
         wait(for: [expectation], timeout: 10.0)
+    }
+
+    func testExpectations() throws {
+        XCTAssertEqual(Expectation("-> Int"), .type("Int"))
+        XCTAssertEqual(Expectation("=> 2"), .value("2"))
+        XCTAssertEqual(Expectation(#"~> Int = \d+"#), .match(#"Int = \d+"#))
+        XCTAssertEqual(Expectation("!! error: division by zero"), .error)
     }
 }
