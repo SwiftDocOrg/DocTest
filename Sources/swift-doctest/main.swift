@@ -89,7 +89,11 @@ struct SwiftDocTest: ParsableCommand {
 
             var lineOffset = match.line
             var code = match.content
-            if !options.runThroughPackageManager {
+            if options.runThroughPackageManager {
+                if source.range(of: #"^import \w"#, options: [.regularExpression]) == nil {
+                    logger.notice("No import statements found at \(assumedFileName)#\(match.line):\(match.column). This may cause unexpected API resolution failures when running through Swift Package Manager.")
+                }
+            } else {
                 code = "\(source)\n\(code)"
                 lineOffset -= source.split(whereSeparator: { $0.isNewline }).count + 1
             }
