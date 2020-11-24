@@ -152,7 +152,7 @@ run them through the Swift REPL,
 and test the output with any annotated expectations.
 
 ```terminal
-$ swift doctest --package path/to/file.swift
+$ swift doctest path/to/file.swift
 TAP version 13
 1..1
 not ok 1 - `add(1 1)` did not produce `3.0`
@@ -184,7 +184,7 @@ If we re-run the same command as before,
 the tests now pass as expected.
 
 ```terminal
-$ swift doctest --package path/to/file.swift
+$ swift doctest path/to/file.swift
 TAP version 13
 1..1
 ok 1 - `add(1, 1)` produces `2`
