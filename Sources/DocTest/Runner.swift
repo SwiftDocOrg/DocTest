@@ -37,12 +37,12 @@ public final class Runner {
 
         let repl = REPL(configuration: configuration)
 
-        repl.evaluationHandler = { (statement, result) in
-            tests.append(contentsOf: statement.tests(with: result))
-        }
-
         for statement in statements {
             repl.evaluate(statement)
+        }
+
+        repl.evaluationHandler = { (statement, result) in
+            tests.append(contentsOf: statement.tests(with: result))
         }
 
         repl.close()

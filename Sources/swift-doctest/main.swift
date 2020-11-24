@@ -87,7 +87,14 @@ struct SwiftDocTest: ParsableCommand {
         for match in scanner.matches(in: source) {
             logger.info("Found DocTest block at \(assumedFileName)#\(match.line):\(match.column)\n\(match.content)")
 
-            let runner = try Runner(source: match.content, assumedFileName: assumedFileName, lineOffset: match.line)
+            var lineOffset = match.line
+            var code = match.content
+            if !options.runThroughPackageManager {
+                code = "\(source)\n\(code)"
+                lineOffset -= source.split(whereSeparator: { $0.isNewline }).count + 1
+            }
+
+            let runner = try Runner(source: code, assumedFileName: assumedFileName, lineOffset: lineOffset)
             group.enter()
             runner.run(with: configuration) { result in
                 switch result {
