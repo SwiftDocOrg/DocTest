@@ -7,6 +7,8 @@ for testing Swift example code in documentation.
 
 **This is still a work-in-progress, and not yet ready for production**
 
+![DocTest Example Usage](https://user-images.githubusercontent.com/7659/100109718-f76ed880-2e20-11eb-8c8e-2dc655611081.png)
+
 > DocTest is inspired by
 > [Python's `doctest`](https://docs.python.org/3/library/doctest.html).
 
